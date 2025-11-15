@@ -1,4 +1,3 @@
-
 import React, { useMemo, useState } from 'react';
 import type { Sale, Expense } from '../types';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
@@ -73,7 +72,7 @@ export const Reports: React.FC<ReportsProps> = ({ sales, expenses }) => {
 
       <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
         <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-6 gap-4">
-          <h3 className="text-xl font-bold">Ingresos/Gastos Mensuales</h3>
+          <h3 className="text-xl font-bold">Gastos/Ingresos Mensuales</h3>
           <select
             value={selectedMonth}
             onChange={(e) => setSelectedMonth(e.target.value)}
@@ -105,8 +104,8 @@ export const Reports: React.FC<ReportsProps> = ({ sales, expenses }) => {
                   contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '10px' }}
                 />
                 <Legend />
-                <Bar dataKey="ingresos" fill="#10b981" name="Ingresos" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="gastos" fill="#ef4444" name="Gastos" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="ingresos" fill="#10b981" name="Ingresos" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
