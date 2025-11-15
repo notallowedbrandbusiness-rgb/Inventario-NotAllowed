@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import type { Sale, InventoryItem } from '../types';
 import { EditIcon, DeleteIcon } from './icons';
@@ -9,10 +8,9 @@ interface IncomeProps {
   addSale: (sale: Omit<Sale, 'id' | 'itemName' | 'totalPrice'>) => boolean;
   updateSale: (sale: Sale) => void;
   deleteSale: (saleId: string) => void;
-  setGeminiTopic: (topic: string) => void;
 }
 
-const SaleForm: React.FC<Pick<IncomeProps, 'inventory' | 'addSale' | 'setGeminiTopic'>> = ({ inventory, addSale, setGeminiTopic }) => {
+const SaleForm: React.FC<Pick<IncomeProps, 'inventory' | 'addSale'>> = ({ inventory, addSale }) => {
     const [itemId, setItemId] = useState('');
     const [quantity, setQuantity] = useState(1);
     const [pricePerUnit, setPricePerUnit] = useState('');
@@ -49,7 +47,6 @@ const SaleForm: React.FC<Pick<IncomeProps, 'inventory' | 'addSale' | 'setGeminiT
             setQuantity(1);
             setPricePerUnit('');
             setDate(new Date().toISOString().split('T')[0]);
-            setGeminiTopic("Reconocimiento de Ingresos");
         }
     };
     
@@ -144,14 +141,14 @@ const DeleteConfirmation: React.FC<{ onConfirm: () => void, onCancel: () => void
 );
 
 
-export const Income: React.FC<IncomeProps> = ({ sales, inventory, addSale, updateSale, deleteSale, setGeminiTopic }) => {
+export const Income: React.FC<IncomeProps> = ({ sales, inventory, addSale, updateSale, deleteSale }) => {
   const [editingSale, setEditingSale] = useState<Sale | null>(null);
   const [deletingSaleId, setDeletingSaleId] = useState<string | null>(null);
 
   return (
     <div className="space-y-8">
       <h2 className="text-3xl font-bold">Ingresos</h2>
-      <SaleForm inventory={inventory} addSale={addSale} setGeminiTopic={setGeminiTopic} />
+      <SaleForm inventory={inventory} addSale={addSale} />
 
       <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
         <h3 className="text-xl font-bold mb-4">Historial de Ventas</h3>

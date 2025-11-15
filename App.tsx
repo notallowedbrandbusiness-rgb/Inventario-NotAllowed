@@ -5,13 +5,11 @@ import { Income } from './components/Income';
 import { Expenses } from './components/Expenses';
 import { Inventory } from './components/Inventory';
 import { Reports } from './components/Reports';
-import { GeminiTip } from './components/GeminiTip';
 import { useAccountingData } from './hooks/useAccountingData';
 import { View } from './types';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>(View.Dashboard);
-  const [geminiTopic, setGeminiTopic] = useState<string | null>(null);
   const { 
     inventory, sales, expenses, 
     addInventoryItem, addSale, addExpense,
@@ -31,21 +29,21 @@ const App: React.FC = () => {
                  addSale={addSale} 
                  updateSale={updateSale} 
                  deleteSale={deleteSale} 
-                 setGeminiTopic={setGeminiTopic} />;
+                 />;
       case View.Expenses:
         return <Expenses 
                  expenses={expenses} 
                  addExpense={addExpense}
                  updateExpense={updateExpense}
                  deleteExpense={deleteExpense}
-                 setGeminiTopic={setGeminiTopic} />;
+                 />;
       case View.Inventory:
         return <Inventory 
                  inventory={inventory} 
                  addInventoryItem={addInventoryItem}
                  updateInventoryItem={updateInventoryItem}
                  deleteInventoryItem={deleteInventoryItem}
-                 setGeminiTopic={setGeminiTopic} />;
+                 />;
       case View.Reports:
         return <Reports sales={sales} expenses={expenses} />;
       default:
@@ -59,9 +57,6 @@ const App: React.FC = () => {
       <main className="container mx-auto p-4 md:p-8">
         {renderView()}
       </main>
-      {geminiTopic && (
-        <GeminiTip topic={geminiTopic} onClose={() => setGeminiTopic(null)} />
-      )}
     </div>
   );
 };

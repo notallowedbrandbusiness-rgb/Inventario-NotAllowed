@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import type { InventoryItem } from '../types';
 import { EditIcon, DeleteIcon } from './icons';
@@ -8,10 +7,9 @@ interface InventoryProps {
   addInventoryItem: (item: Omit<InventoryItem, 'id' | 'createdAt'>) => void;
   updateInventoryItem: (item: InventoryItem) => void;
   deleteInventoryItem: (itemId: string) => void;
-  setGeminiTopic: (topic: string) => void;
 }
 
-const InventoryForm: React.FC<Pick<InventoryProps, 'addInventoryItem' | 'setGeminiTopic'>> = ({ addInventoryItem, setGeminiTopic }) => {
+const InventoryForm: React.FC<Pick<InventoryProps, 'addInventoryItem'>> = ({ addInventoryItem }) => {
     const [name, setName] = useState('');
     const [cost, setCost] = useState('');
     const [basePrice, setBasePrice] = useState('');
@@ -27,8 +25,6 @@ const InventoryForm: React.FC<Pick<InventoryProps, 'addInventoryItem' | 'setGemi
             basePrice: parseFloat(basePrice),
             stock: parseInt(stock, 10),
         });
-
-        setGeminiTopic("Valoración de Inventario y Margen de Ganancia");
 
         setName('');
         setCost('');
@@ -127,14 +123,14 @@ const DeleteConfirmation: React.FC<{ onConfirm: () => void, onCancel: () => void
     </div>
 );
 
-export const Inventory: React.FC<InventoryProps> = ({ inventory, addInventoryItem, updateInventoryItem, deleteInventoryItem, setGeminiTopic }) => {
+export const Inventory: React.FC<InventoryProps> = ({ inventory, addInventoryItem, updateInventoryItem, deleteInventoryItem }) => {
   const [editingItem, setEditingItem] = useState<InventoryItem | null>(null);
   const [deletingItemId, setDeletingItemId] = useState<string | null>(null);
 
   return (
     <div className="space-y-8">
         <h2 className="text-3xl font-bold">Inventario</h2>
-        <InventoryForm addInventoryItem={addInventoryItem} setGeminiTopic={setGeminiTopic} />
+        <InventoryForm addInventoryItem={addInventoryItem} />
         
         <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
             <h3 className="text-xl font-bold mb-4">Stock de Productos</h3>

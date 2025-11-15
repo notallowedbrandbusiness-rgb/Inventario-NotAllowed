@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import type { Expense } from '../types';
 import { EditIcon, DeleteIcon } from './icons';
@@ -8,7 +7,6 @@ interface ExpensesProps {
   addExpense: (expense: Omit<Expense, 'id'>) => void;
   updateExpense: (expense: Expense) => void;
   deleteExpense: (expenseId: string) => void;
-  setGeminiTopic: (topic: string) => void;
 }
 
 const EXPENSE_CATEGORIES = [
@@ -16,7 +14,7 @@ const EXPENSE_CATEGORIES = [
   "Software y Herramientas", "Alquiler de Oficina/Estudio", "Salarios", "Otros"
 ];
 
-const ExpenseForm: React.FC<Pick<ExpensesProps, 'addExpense' | 'setGeminiTopic'>> = ({ addExpense, setGeminiTopic }) => {
+const ExpenseForm: React.FC<Pick<ExpensesProps, 'addExpense'>> = ({ addExpense }) => {
     const [category, setCategory] = useState(EXPENSE_CATEGORIES[0]);
     const [description, setDescription] = useState('');
     const [amount, setAmount] = useState('');
@@ -35,14 +33,6 @@ const ExpenseForm: React.FC<Pick<ExpensesProps, 'addExpense' | 'setGeminiTopic'>
             amount: parseFloat(amount),
             date,
         });
-
-        const topicMap: { [key: string]: string } = {
-            "Materiales y Producción": "Costo de Bienes Vendidos (COGS)",
-            "Marketing y Publicidad": "Gastos de Marketing",
-            "Envío y Logística": "Gastos Operativos",
-        };
-
-        setGeminiTopic(topicMap[category] || "Tipos de Gastos Empresariales");
         
         setCategory(EXPENSE_CATEGORIES[0]);
         setDescription('');
@@ -139,14 +129,14 @@ const DeleteConfirmation: React.FC<{ onConfirm: () => void, onCancel: () => void
     </div>
 );
 
-export const Expenses: React.FC<ExpensesProps> = ({ expenses, addExpense, updateExpense, deleteExpense, setGeminiTopic }) => {
+export const Expenses: React.FC<ExpensesProps> = ({ expenses, addExpense, updateExpense, deleteExpense }) => {
   const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
   const [deletingExpenseId, setDeletingExpenseId] = useState<string | null>(null);
 
   return (
     <div className="space-y-8">
         <h2 className="text-3xl font-bold">Gastos</h2>
-        <ExpenseForm addExpense={addExpense} setGeminiTopic={setGeminiTopic} />
+        <ExpenseForm addExpense={addExpense} />
         
         <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
             <h3 className="text-xl font-bold mb-4">Historial de Gastos</h3>
